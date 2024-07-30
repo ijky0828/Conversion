@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2c2f33;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #7289da;
+        }
+
+        .converter {
+            margin-bottom: 30px;
+        }
+
+        .converter h2 {
+            color: #99aab5;
+        }
+
+        input, select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #7289da;
+            border-radius: 4px;
+            background-color: #23272a;
+            color: #ffffff;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #7289da;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5b6eae;
+        }
+
+        p {
+            margin-top: 10px;
+            color: #99aab5;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unit Converter</h1>
+        <div class="converter">
+            <h2>Weight Conversion</h2>
+            <select id="weightUnit">
+                <option value="mg">Milligrams</option>
+                <option value="g">Grams</option>
+                <option value="kg">Kilograms</option>
+                <option value="ton">Tons</option>
+                <option value="lbs">Pounds(lbs)</option>
+                <option value="oz">Ounces(oz)</option>
+                <option value="gr">Grains(gr)</option>
+            </select>
+            <input type="number" id="weightInput" placeholder="Enter Weight">
+            <button onclick="convertWeight()">Convert</button>
+            <p id="weightOutput"></p>
+        </div>
+        <div class="converter">
+            <h2>Length Conversion</h2>
+            <select id="lengthUnit">
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="m">m</option>
+                <option value="km">km</option>
+                <option value="in">in</option>
+                <option value="ft">ft</option>
+                <option value="yd">yd</option>
+                <option value="mi">mi</option>
+            </select>
+            <input type="number" id="lengthInput" placeholder="Enter length">
+            <button onclick="convertLength()">Convert</button>
+            <p id="lengthOutput"></p>
+        </div>
+        <div class="converter">
+            <h2>Volume Conversion</h2>
+            <select id="volumeUnit">
+                <option value="cc">Cubic Centimeters(cm<sup>3</sup>)</option>
+                <option value="ml">Milliliters(㎖)</option>
+                <option value="dl">Deciliters(dl)</option>
+                <option value="l">Liters(ℓ)</option>
+                <option value="gal">Gallons(gal)</option>
+                <option value="bbl">Barrels(bbl)</option>
+                <option value="floz">Fluid Ounces(fl oz)</option>
+            </select>
+            <input type="number" id="volumeInput" placeholder="Enter volume">
+            <button onclick="convertVolume()">Convert</button>
+            <p id="volumeOutput"></p>
+        </div>
+        <div class="converter">
+            <h2>Area Conversion</h2>
+            <select id="areaUnit">
+                <option value="sqm">Square Meters(m²)</option>
+                <option value="sqkm">Square Kilometers(km²)</option>
+                <option value="sqft">Square Feet(ft²)</option>
+                <option value="are">Are(a)</option>
+                <option value="ha">Hectares(ha)</option>
+                <option value="acre">Acres(ac)</option>
+            </select>
+            <input type="number" id="areaInput" placeholder="Enter area">
+            <button onclick="convertArea()">Convert</button>
+            <p id="areaOutput"></p>
+        </div>
+        <div class="converter">
+            <h2>Temperature Conversion</h2>
+            <select id="tempUnit">
+                <option value="celsius">Celsius(°C)</option>
+                <option value="fahrenheit">Fahrenheit(°F)</option>
+                <option value="kelvin">Kelvin(K)</option>
+            </select>
+            <input type="number" id="tempInput" placeholder="Enter temperature">
+            <button onclick="convertTemperature()">Convert</button>
+            <p id="tempOutput"></p>
+        </div>
+        <div class="converter">
+            <h2>Number Conversion</h2>
+            <select id="numberUnit">
+                <option value="decimal">Decimal(10)</option>
+                <option value="binary">Binary(2)</option>
+                <option value="hexadecimal">Hexadecimal(16)</option>
+            </select>
+            <input type="number" id="numberInput" placeholder="Enter a number">
+            <button onclick="convertNumber()">Convert</button>
+            <p id="binaryOutput"></p>
+            <p id="hexOutput"></p>
+        </div>
+    </div>
+    <script>
+        function convertWeight() {
+            const unit = document.getElementById('weightUnit').value;
+            const weight = parseFloat(document.getElementById('weightInput').value);
+            let result;
+
+            switch (unit) {
+                case 'mg':
+                    result = `${weight} mg = ${(weight / 1000).toFixed(2)} g\n${(weight / 1e6).toFixed(6)} kg\n${(weight / 1e9).toFixed(9)} ton\n${(weight / 453592.37).toFixed(6)} lbs\n${(weight / 28349.523125).toFixed(6)} oz\n${(weight / 64.79891).toFixed(6)} gr`;
+                    break;
+                case 'g':
+                    result = `${weight} g = ${(weight * 1000).toFixed(2)} mg\n${(weight / 1000).toFixed(6)} kg\n${(weight / 1e6).toFixed(9)} ton\n${(weight / 453.59237).toFixed(6)} lbs\n${(weight / 28.349523125).toFixed(6)} oz\n${(weight * 15.4323584).toFixed(6)} gr`;
+                    break;
+                case 'kg':
+                    result = `${weight} kg = ${(weight * 1e6).toFixed(2)} mg\n${(weight * 1000).toFixed(2)} g\n${(weight / 1000).toFixed(6)} ton\n${(weight * 2.20462).toFixed(6)} lbs\n${(weight * 35.274).toFixed(6)} oz\n${(weight * 15432.3584).toFixed(6)} gr`;
+                    break;
+                case 'ton':
+                    result = `${weight} ton = ${(weight * 1e9).toFixed(2)} mg\n${(weight * 1e6).toFixed(2)} g\n${(weight * 1000).toFixed(2)} kg\n${(weight * 2204.62).toFixed(6)} lbs\n${(weight * 35274).toFixed(6)} oz\n${(weight * 1.543e7).toFixed(6)} gr`;
+                    break;
+                case 'lbs':
+                    result = `${weight} lbs = ${(weight * 453592.37).toFixed(2)} mg\n${(weight * 453.59237).toFixed(6)} g\n${(weight / 2.20462).toFixed(6)} kg\n${(weight / 2204.62).toFixed(9)} ton\n${(weight * 16).toFixed(6)} oz\n${(weight * 7000).toFixed(6)} gr`;
+                    break;
+                case 'oz':
+                    result = `${weight} oz = ${(weight * 28349.523125).toFixed(2)} mg\n${(weight * 28.349523125).toFixed(6)} g\n${(weight / 35.274).toFixed(6)} kg\n${(weight / 35274).toFixed(9)} ton\n${(weight / 16).toFixed(6)} lbs\n${(weight * 437.5).toFixed(6)} gr`;
+                    break;
+                case 'gr':
+                    result = `${weight} gr = ${(weight * 64.79891).toFixed(2)} mg\n${(weight / 15.4323584).toFixed(6)} g\n${(weight / 15432.3584).toFixed(6)} kg\n${(weight / 1.543e7).toFixed(9)} ton\n${(weight / 7000).toFixed(6)} lbs\n${(weight / 437.5).toFixed(6)} oz`;
+                    break;
+                default:
+                    result = "Invalid unit";
+            }
+
+            document.getElementById('weightOutput').innerText = `Converted:\n${result}`;
+        }
+
+        function convertLength() {
+            const unit = document.getElementById('lengthUnit').value;
+            const length = parseFloat(document.getElementById('lengthInput').value);
+            let result;
+
+            switch (unit) {
+                case 'mm':
+                    result = `${length} mm = ${(length / 10).toFixed(2)} cm\n${(length / 1000).toFixed(6)} m\n${(length / 1e6).toFixed(9)} km\n${(length / 25.4).toFixed(6)} in\n${(length / 304.8).toFixed(6)} ft\n${(length / 914.4).toFixed(6)} yd\n${(length / 1.609e6).toFixed(9)} mi`;
+                    break;
+                case 'cm':
+                    result = `${length} cm = ${(length * 10).toFixed(2)} mm\n${(length / 100).toFixed(6)} m\n${(length / 100000).toFixed(9)} km\n${(length / 2.54).toFixed(6)} in\n${(length / 30.48).toFixed(6)} ft\n${(length / 91.44).toFixed(6)} yd\n${(length / 160934).toFixed(9)} mi`;
+                    break;
+                case 'm':
+                    result = `${length} m = ${(length * 1000).toFixed(2)} mm\n${(length * 100).toFixed(2)} cm\n${(length / 1000).toFixed(6)} km\n${(length * 39.3701).toFixed(6)} in\n${(length * 3.28084).toFixed(6)} ft\n${(length * 1.09361).toFixed(6)} yd\n${(length / 1609.34).toFixed(6)} mi`;
+                    break;
+                case 'km':
+                    result = `${length} km = ${(length * 1e6).toFixed(2)} mm\n${(length * 100000).toFixed(2)} cm\n${(length * 1000).toFixed(2)} m\n${(length * 39370.1).toFixed(6)} in\n${(length * 3280.84).toFixed(6)} ft\n${(length * 1093.61).toFixed(6)} yd\n${(length / 1.60934).toFixed(6)} mi`;
+                    break;
+                case 'in':
+                    result = `${length} in = ${(length * 25.4).toFixed(2)} mm\n${(length * 2.54).toFixed(2)} cm\n${(length / 39.3701).toFixed(6)} m\n${(length / 39370.1).toFixed(9)} km\n${(length / 12).toFixed(6)} ft\n${(length / 36).toFixed(6)} yd\n${(length / 63360).toFixed(9)} mi`;
+                    break;
+                case 'ft':
+                    result = `${length} ft = ${(length * 304.8).toFixed(2)} mm\n${(length * 30.48).toFixed(2)} cm\n${(length / 3.28084).toFixed(6)} m\n${(length / 3280.84).toFixed(9)} km\n${(length * 12).toFixed(6)} in\n${(length / 3).toFixed(6)} yd\n${(length / 5280).toFixed(6)} mi`;
+                    break;
+                case 'yd':
+                    result = `${length} yd = ${(length * 914.4).toFixed(2)} mm\n${(length * 91.44).toFixed(2)} cm\n${(length / 1.09361).toFixed(6)} m\n${(length / 1093.61).toFixed(9)} km\n${(length * 36).toFixed(6)} in\n${(length * 3).toFixed(6)} ft\n${(length / 1760).toFixed(6)} mi`;
+                    break;
+                case 'mi':
+                    result = `${length} mi = ${(length * 1.609e6).toFixed(2)} mm\n${(length * 160934).toFixed(2)} cm\n${(length * 1609.34).toFixed(6)} m\n${(length * 1.60934).toFixed(6)} km\n${(length * 63360).toFixed(6)} in\n${(length * 5280).toFixed(6)} ft\n${(length * 1760).toFixed(6)} yd`;
+                    break;
+                default:
+                    result = "Invalid unit";
+            }
+
+            document.getElementById('lengthOutput').innerText = `Converted:\n${result}`;
+        }
+
+        function convertVolume() {
+            const unit = document.getElementById('volumeUnit').value;
+            const volume = parseFloat(document.getElementById('volumeInput').value);
+            let result;
+
+            switch (unit) {
+                case 'cc':
+                    result = `${volume} cc = ${(volume).toFixed(2)} ml\n${(volume / 100).toFixed(2)} dl\n${(volume / 1000).toFixed(6)} l\n${(volume / 3785.41).toFixed(6)} gal\n${(volume / 119240).toFixed(6)} bbl\n${(volume / 29.5735).toFixed(6)} fl. oz.`;
+                    break;
+                case 'ml':
+                    result = `${volume} ml = ${(volume).toFixed(2)} cc\n${(volume / 100).toFixed(2)} dl\n${(volume / 1000).toFixed(6)} l\n${(volume / 3785.41).toFixed(6)} gal\n${(volume / 119240).toFixed(6)} bbl\n${(volume / 29.5735).toFixed(6)} fl. oz.`;
+                    break;
+                case 'dl':
+                    result = `${volume} dl = ${(volume * 100).toFixed(2)} cc\n${(volume * 100).toFixed(2)} ml\n${(volume / 10).toFixed(6)} l\n${(volume / 378.541).toFixed(6)} gal\n${(volume / 11924).toFixed(6)} bbl\n${(volume * 3.3814).toFixed(6)} fl. oz.`;
+                    break;
+                case 'l':
+                    result = `${volume} l = ${(volume * 1000).toFixed(2)} cc\n${(volume * 1000).toFixed(2)} ml\n${(volume * 10).toFixed(2)} dl\n${(volume / 3.78541).toFixed(6)} gal\n${(volume / 119.24).toFixed(6)} bbl\n${(volume * 33.814).toFixed(6)} fl. oz.`;
+                    break;
+                case 'gal':
+                    result = `${volume} gal = ${(volume * 3785.41).toFixed(2)} cc\n${(volume * 3785.41).toFixed(2)} ml\n${(volume * 378.541).toFixed(6)} dl\n${(volume * 3.78541).toFixed(6)} l\n${(volume / 31.5).toFixed(6)} bbl\n${(volume * 128).toFixed(6)} fl. oz.`;
+                    break;
+                case 'bbl':
+                    result = `${volume} bbl = ${(volume * 119240).toFixed(2)} cc\n${(volume * 119240).toFixed(2)} ml\n${(volume * 11924).toFixed(6)} dl\n${(volume * 119.24).toFixed(6)} l\n${(volume * 31.5).toFixed(6)} gal\n${(volume * 4032).toFixed(6)} fl. oz.`;
+                    break;
+                case 'floz':
+                    result = `${volume} fl. oz. = ${(volume * 29.5735).toFixed(2)} cc\n${(volume * 29.5735).toFixed(2)} ml\n${(volume / 3.3814).toFixed(6)} dl\n${(volume / 33.814).toFixed(6)} l\n${(volume / 128).toFixed(6)} gal\n${(volume / 4032).toFixed(6)} bbl`;
+                    break;
+                default:
+                    result = "Invalid unit";
+            }
+
+            document.getElementById('volumeOutput').innerText = `Converted:\n${result}`;
+        }
+
+        function convertArea() {
+            const unit = document.getElementById('areaUnit').value;
+            const area = parseFloat(document.getElementById('areaInput').value);
+            let result;
+
+            switch (unit) {
+                case 'sqm':
+                    result = `${area} sqm = ${(area / 100).toFixed(2)} are\n${(area / 10000).toFixed(6)} ha\n${(area / 1e6).toFixed(9)} sqkm\n${(area * 10.7639).toFixed(6)} sqft\n${(area / 4046.86).toFixed(6)} acre`;
+                    break;
+                case 'are':
+                    result = `${area} are = ${(area * 100).toFixed(2)} sqm\n${(area / 100).toFixed(6)} ha\n${(area / 10000).toFixed(9)} sqkm\n${(area * 1076.39).toFixed(6)} sqft\n${(area / 40.4686).toFixed(6)} acre`;
+                    break;
+                case 'ha':
+                    result = `${area} ha = ${(area * 10000).toFixed(2)} sqm\n${(area * 100).toFixed(2)} are\n${(area / 100).toFixed(6)} sqkm\n${(area * 107639).toFixed(6)} sqft\n${(area * 2.47105).toFixed(6)} acre`;
+                    break;
+                case 'sqkm':
+                    result = `${area} sqkm = ${(area * 1e6).toFixed(2)} sqm\n${(area * 10000).toFixed(2)} are\n${(area * 100).toFixed(2)} ha\n${(area * 1.076e7).toFixed(6)} sqft\n${(area * 247.105).toFixed(6)} acre`;
+                    break;
+                case 'sqft':
+                    result = `${area} sqft = ${(area / 10.7639).toFixed(2)} sqm\n${(area / 1076.39).toFixed(6)} are\n${(area / 107639).toFixed(9)} ha\n${(area / 1.076e7).toFixed(9)} sqkm\n${(area / 43560).toFixed(6)} acre`;
+                    break;
+                case 'acre':
+                    result = `${area} acre = ${(area * 4046.86).toFixed(2)} sqm\n${(area * 40.4686).toFixed(2)} are\n${(area / 2.47105).toFixed(6)} ha\n${(area / 247.105).toFixed(6)} sqkm\n${(area * 43560).toFixed(6)} ft^2`;
+                    break;
+                default:
+                    result = "Invalid unit";
+            }
+
+            document.getElementById('areaOutput').innerText = `Converted:\n${result}`;
+        }
+
+        function convertTemperature() {
+            const unit = document.getElementById('tempUnit').value;
+            const temp = parseFloat(document.getElementById('tempInput').value);
+            let result;
+
+            switch (unit) {
+                case 'celsius':
+                    result = `${temp} °C = ${(temp * 9/5 + 32).toFixed(2)} °F\n${(temp + 273.15).toFixed(2)} K`;
+                    break;
+                case 'fahrenheit':
+                    result = `${temp} °F = ${((temp - 32) * 5/9).toFixed(2)} °C\n${(((temp - 32) * 5/9) + 273.15).toFixed(2)} K`;
+                    break;
+                case 'kelvin':
+                    result = `${temp} K = ${(temp - 273.15).toFixed(2)} °C\n${((temp - 273.15) * 9/5 + 32).toFixed(2)} °F`;
+                    break;
+                default:
+                    result = "Invalid unit";
+            }
+
+            document.getElementById('tempOutput').innerText = `Converted:\n${result}`;
+        }
+
+        function convertNumber() {
+            const unit = document.getElementById('numberUnit').value;
+            const number = document.getElementById('numberInput').value;
+            let binary, hexadecimal, decimal;
+
+            if (unit === 'decimal') {
+                decimal = parseInt(number, 10);
+                binary = decimal.toString(2);
+                hexadecimal = decimal.toString(16).toUpperCase();
+            } else if (unit === 'binary') {
+                decimal = parseInt(number, 2);
+                binary = number;
+                hexadecimal = decimal.toString(16).toUpperCase();
+            } else {
+                decimal = parseInt(number, 16);
+                binary = decimal.toString(2);
+                hexadecimal = number.toUpperCase();
+            }
+
+            document.getElementById('binaryOutput').innerText = `Binary: ${binary}`;
+            document.getElementById('hexOutput').innerText = `Hexadecimal: ${hexadecimal}`;
+        }
+    </script>
+</body>
+</html>
